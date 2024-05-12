@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fit And Grow</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0; /* Fallback color */
+    }
+
+    .section {
+      height: 125vh; /* Full viewport height */
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 2rem;
+      position: relative; /* Set position to relative to allow absolute positioning */
+    }
+
+    /* Define background images for each section */
+    .section1 {
+      background-image: url('second.jpg');
+    }
+
+    .section2 {
+      background-image: linear-gradient(to bottom, black 50%, white 50%);
+      color: white; /* Set text color to white for better visibility */
+      position: relative; /* Set position to relative to allow absolute positioning */
+      overflow: hidden; /* Hide overflow to prevent horizontal scrollbar */
+    }
+
+    .section3 {
+      background-image: linear-gradient(to bottom, white 50%, black 50%);
+      color: white; /* Set text color to white for better visibility */
+      position: relative; /* Set position to relative to allow absolute positioning */
+      overflow: hidden; /* Hide overflow to prevent horizontal scrollbar */
+    }
+
+    .navbar {
+      overflow: hidden;
+      background-color: transparent;
+      transition: top 0.3s;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .navbar img {
+      width: 250px;
+      height: auto;
+      float: left; /* Change float to left */
+      margin: 0 10px 0 0; /* Adjust margin for positioning */
+    }
+
+    .navbar a {
+      float: right;
+      display: block;
+      color: wheat;
+      text-align: center;
+      padding: 30px 25px;
+      text-decoration: none;
+    }
+
+    .navbar a:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      color: black;
+    }
+
+    .hidden {
+      top: -50px;
+    }
+
+    .content {
+      padding-top: 100px; /* Adjusted for the height of the navbar */
+    }
+    
+    .section-title {/*FOR SEC2 TITLE*/
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      font-family: fantasy;
+      font-weight: lighter;
+    }
+    .address-title {/*FOR SEC2 TITLE*/
+      position: absolute;
+      top: 65%;
+      left: 30%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      font-family: fantasy;
+      color: white;
+      font-weight: lighter;
+    }
+    .amenities-title {/*FOR SEC2 TITLE*/
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      font-family: fantasy;
+      color: black;
+    }
+
+    .sec3-title {/*FOR SEC2 TITLE*/
+      position: absolute;
+      top: 0%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      font-family: fantasy;
+      color: black;
+    }
+    .bullet-points {/*FOR SEC2 TITLE*/
+      position: absolute;
+      top: 65%;
+      left: 25%;
+      transform: translateX(-50%);
+      font-size: 25px;
+      font-family: 'Times New Roman', Times, serif;
+      color: black;
+      font-weight: bold;
+    }
+    .second-points {/*FOR SEC2 TITLE*/
+      position: absolute;
+      top: 65%;
+      left: 80%;
+      transform: translateX(-50%);
+      font-size: 25px;
+      font-family: 'Times New Roman', Times, serif;
+      color: black;
+      font-weight: bold;
+    }
+    /* Style for the quote and button */
+    .quote-container {
+      position: absolute;
+      top: 25%;
+      right: 50px; /* Adjust as needed */
+      transform: translateY(-50%);
+      text-align: right;
+      font-family: fantasy;
+    }
+
+    .join-button {
+      display: inline-block;
+      background-color: silver; /* Button background color */
+      color: black; /* Button text color */
+      padding: 10px 20px; /* Button padding */
+      border-radius: 25px; /* Circular border */
+      text-decoration: none; /* Remove default link underline */
+      border: 2px solid white;
+      font-size: 18px;
+    }
+
+    .join-button:hover {
+      background-color: transparent; /* Button background color on hover */
+    }
+
+    /* Animated Image CSS */
+    .animated-image {
+      position: absolute;
+      top: 10%; /* Position the image vertically */
+      left: -100%; /* Start position, completely off-screen to the left */
+      width: 350px; /* Adjust the width as needed */
+      height: auto; /* Maintain aspect ratio */
+      opacity: 0; /* Initially set opacity to 0 */
+      transition: opacity 1s ease; /* Fade-in transition */
+    }
+
+    .animate-image {
+      left: 250px; /* Adjust the left position when animated */
+      opacity: 1; /* Set opacity to 1 to fade in */
+    }
+
+    .section-image {
+      position: absolute;
+      top: 10%; /* Position the image vertically */
+      left: -100%; /* Start position, completely off-screen to the left */
+      width: 350px; /* Adjust the width as needed */
+      height: auto; /* Maintain aspect ratio */
+      opacity: 0; /* Initially set opacity to 0 */
+      transition: opacity 1s ease; /* Fade-in transition */
+    }
+
+    .section-image.animate-image {
+      left: 650px; /* Adjust the left position when animated */
+      opacity: 1; /* Set opacity to 1 to fade in */
+    }
+
+    .supplement-image {
+      position: absolute;
+      top: 10%; /* Position the image vertically */
+      left: -100%; /* Start position, completely off-screen to the left */
+      width: 350px; /* Adjust the width as needed */
+      height: auto; /* Maintain aspect ratio */
+      opacity: 0; /* Initially set opacity to 0 */
+      transition: opacity 1s ease; /* Fade-in transition */
+    }
+
+    .supplement-image.animate-image {
+      left: 1050px; /* Adjust the left position when animated */
+      opacity: 1; /* Set opacity to 1 to fade in */
+    }
+    .yoga-image {
+      position: absolute;
+      top: 10%; /* Position the image vertically */
+      left: -100%; /* Start position, completely off-screen to the left */
+      width: 350px; /* Adjust the width as needed */
+      height: auto; /* Maintain aspect ratio */
+      opacity: 0; /* Initially set opacity to 0 */
+      transition: opacity 1s ease; /* Fade-in transition */
+    }
+
+    .yoga-image.animate-image {
+      left: 1450px; /* Adjust the left position when animated */
+      opacity: 1; /* Set opacity to 1 to fade in */
+    }
+    .section2 .container p {
+  position: absolute; /* Set position to absolute */
+  top: 32.5%; /* Position the text vertically at 60% from the top */
+  left: 22.5%; /* Position the text horizontally at 50% from the left */
+  transform: translate(-50%, -50%); /* Center the text both vertically and horizontally */
+  font-size: 22px; /* Adjust font size as needed */
+  font-family: 'Times New Roman', Times, serif; /* Adjust font family as needed */
+  color: orangered; /* Adjust text color as needed */
+}
+
+.section2 .container p:nth-child(2) {
+  left: 43.5%; /* Position the text horizontally at 50% from the left */
+}
+
+.section2 .container p:nth-of-type(3) {
+  left: 64.5%; /* Position the text horizontally at 70% from the left */
+}
+.section2 .container p:nth-of-type(4) {
+  left: 85.5%; /* Position the text horizontally at 70% from the left */
+}
+
+    .card-body {
+      border: 1px solid black;
+    border-radius: 10px; /* Adjust the radius value to control the roundness of the corners */
+    padding: 20px; /* Add padding as needed */
+    text-align: center;
+}
+.card-title-line {
+  border-bottom: 1px solid black;
+  padding-bottom: 20px; /* Add some padding to create space between the text and the line */
+}
+
+
+.third-point {
+      position: absolute;
+      top: 80%;
+      font-size: 20px;
+      right: 50px; /* Adjust as needed */
+      transform: translateY(-50%);
+      left: 15%;
+      font-family: 'Times New Roman', Times, serif;
+    }
+    .social-media {
+      position: absolute;
+      top: 80%;
+      font-size: 25px;
+      right: 50px; /* Adjust as needed */
+      transform: translateY(-50%);
+      left: 65%;
+      font-family:fantasy;
+    }
+    .facebook-logo {
+  width: 160px; /* Adjust the width */
+  height: auto; /* Maintain aspect ratio */
+  margin-left: 800px; /* Move to the right side */
+  margin-top: 1000px; /* Adjust the margin from the top */
+}
+
+.instagram-logo {
+  width: 80px; /* Adjust the width */
+  height: auto; /* Maintain aspect ratio */
+  margin-left: 100px; /* Move to the right side */
+  margin-top: 1000px; /* Adjust the margin from the top */
+}
+.logomain-logo {
+  width: 200px; /* Adjust the width */
+  height: auto; /* Maintain aspect ratio */
+  margin-left: 100px; /* Move to the right side */
+  margin-top: 50px; /* Adjust the margin from the top */
+}
+
+
+
+
+
+
+.btn-23,
+.btn-23 *,
+.btn-23 :after,
+.btn-23 :before,
+.btn-23:after,
+.btn-23:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+
+.btn-23 {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: button;
+  background-color: #000;
+  background-image: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-size: 50%;
+  font-weight: 700 ;
+  line-height: 1.5;
+  margin: 0;
+  -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.btn-23:disabled {
+  cursor: default;
+}
+
+.btn-23:-moz-focusring {
+  outline: auto;
+}
+
+.btn-23 svg {
+  display: block;
+  vertical-align: middle;
+}
+
+.btn-23 [hidden] {
+  display: none;
+}
+
+.btn-23 {
+  border-radius: 99rem;
+  border-width: 2px;
+  overflow: hidden;
+  padding: 0.8rem 3rem;
+  position: relative;
+}
+
+.btn-23 span {
+  display: grid;
+  inset: 0;
+  place-items: center;
+  position: absolute;
+  transition: opacity 0.2s ease;
+}
+
+.btn-23 .marquee {
+  --spacing: 6em;
+  --start: 0em;
+  --end: 6em;
+  -webkit-animation: marquee 1s linear infinite;
+  animation: marquee 1s linear infinite;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+  opacity: 0;
+  position: relative;
+  text-shadow: #fff var(--spacing) 0, #fff calc(var(--spacing) * -1) 0,
+    #fff calc(var(--spacing) * -2) 0;
+}
+
+.btn-23:hover .marquee {
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  opacity: 1;
+}
+
+.btn-23:hover .text {
+  opacity: 0;
+}
+
+@-webkit-keyframes marquee {
+  0% {
+    transform: translateX(var(--start));
+  }
+
+  to {
+    transform: translateX(var(--end));
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(var(--start));
+  }
+
+  to {
+    transform: translateX(var(--end));
+  }
+}
+
+
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 13rem;
+  overflow: hidden;
+  height: 3rem;
+  background-size: 300% 300%;
+  backdrop-filter: blur(1rem);
+  border-radius: 5rem;
+  transition: 0.5s;
+  animation: gradient_301 5s ease infinite;
+  border: double 4px transparent;
+  background-image: linear-gradient(#212121, #212121),  linear-gradient(137.48deg, #ffdb3b 10%,#FE53BB 45%, #8F51EA 67%, #0044ff 87%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+#container-stars {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transition: 0.5s;
+  backdrop-filter: blur(1rem);
+  border-radius: 5rem;
+}
+
+strong {
+  z-index: 2;
+  font-family: 'Avalors Personal Use';
+  font-size: 15px;
+  letter-spacing: 5px;
+  color: #FFFFFF;
+  text-shadow: 0 0 4px white;
+}
+
+#glow {
+  position: absolute;
+  display: flex;
+  width: 12rem;
+}
+
+.circle {
+  width: 100%;
+  height: 30px;
+  filter: blur(2rem);
+  animation: pulse_3011 4s infinite;
+  z-index: -1;
+}
+
+.circle:nth-of-type(1) {
+  background: rgba(254, 83, 186, 0.636);
+}
+
+.circle:nth-of-type(2) {
+  background: rgba(142, 81, 234, 0.704);
+}
+
+.btn:hover #container-stars {
+  z-index: 1;
+  background-color: #212121;
+}
+
+.btn:hover {
+  transform: scale(1.1)
+}
+
+.btn:active {
+  border: double 4px #FE53BB;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  animation: none;
+}
+
+.btn:active .circle {
+  background: #FE53BB;
+}
+
+#stars {
+  position: relative;
+  background: transparent;
+  width: 200rem;
+  height: 200rem;
+}
+
+#stars::after {
+  content: "";
+  position: absolute;
+  top: -10rem;
+  left: -100rem;
+  width: 100%;
+  height: 100%;
+  animation: animStarRotate 90s linear infinite;
+}
+
+#stars::after {
+  background-image: radial-gradient(#ffffff 1px, transparent 1%);
+  background-size: 50px 50px;
+}
+
+#stars::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 170%;
+  height: 500%;
+  animation: animStar 60s linear infinite;
+}
+
+#stars::before {
+  background-image: radial-gradient(#ffffff 1px, transparent 1%);
+  background-size: 50px 50px;
+  opacity: 0.5;
+}
+
+@keyframes animStar {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-135rem);
+  }
+}
+
+@keyframes animStarRotate {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0);
+  }
+}
+
+@keyframes gradient_301 {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse_3011 {
+  0% {
+    transform: scale(0.75);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    transform: scale(0.75);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+
+
+  </style>
+</head>
+<body>
+
+<div class="navbar" id="navbar">
+  <img src="logomain.png" alt="Logo">
+  <a href="#section1" class="active">HOME</a>
+  <a href="#section2">SERVICES</a>
+  <a href="#section3">CONTACT</a>
+  <a href="#section3">SUBSCRIPTION</a>
+</div>
+
+<section id="section1" class="section section1 container">
+  <div class="quote-container">
+    <p>"A year from now you may wish you had started today."</p>
+    <button class="btn" type="button" onclick="redirectToPage()">
+      <strong>JOIN US NOW</strong>
+      <div id="container-stars">
+        <div id="stars"></div>
+      </div>
+    
+      <div id="glow">
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+    </button>
+    
+  </div>
+  <!-- Other content goes here -->
+</section>
+
+<section id="section2" class="section section2">
+  <div class="container">
+    <h1 class="section-title">OUR  SERVICES</h1>
+    <p>Personal Training</p>
+    <img src="Personal.jpg" alt="Animated Image" class="animated-image">
+    <img src="11.avif" alt="Image" class="section-image animated-image"> <!-- Add the animated-image class here -->
+    <img src="Supplement.jpg" alt="Image" class="supplement-image animated-image">
+    <img src="yoga.jpg" alt="Yoga Image" class="yoga-image animated-image">
+    <p>Functional Training</p>
+    <p>Nutrition Counseling</p>
+    <p>Yogic Arts Training </p>
+    <h2 class="amenities-title">AMENITIES</h2>
+    <ul class="bullet-points">
+      <li>Boxing Ring</li><br>
+      <li>State-of-the-Art Equipment</li><br>
+      <li>Locker rooms with Showers</li><br>
+      <li>Personal Training Zones</li><br>
+      <li>Spacious Workout Areas</li>
+  </ul>
+  <ul class="second-points">
+    <li>Mordern Facilities</li><br>
+    <li>Premium Classes</li><br>
+    <li>Highly Skilled Trainers</li><br>
+    <li>Monthly Guest Passes</li><br>
+    <li>Basketball Court</li>
+</ul>
+  
+    
+  </div>
+</section>
+
+<section id="section3" class="section section3">
+  <h1 class="sec3-title">MEMBERSHIP PLANS</h1>
+  <div class="container">
+    <div class="card" style="width: 18rem; position: absolute; top: 100px; right: 200px;">
+      <div class="card-body">
+        <h5 class="card-title card-title-line" style="color: black;">12 Month</h5>
+        <h5 class="card-title card-title-line" style="color: black;">Male - 22000</h5>
+        <h5 class="card-title card-title-line" style="color: black;">Female - 19000</h5>
+        <button class="btn-23" onclick="window.location.href = 'subscription.html';">
+          <span class="text">SUBSCRIBE</span>
+          <span aria-hidden="text" class="marquee">SUBSCRIBE</span>
+        </button>
+        
+      </div>
+    </div>
+    <div class="card" style="width: 18rem; position: absolute; top: 100px; right: 600px;">
+      <div class="card-body">
+        <h5 class="card-title card-title-line" style="color: black;">6 Month</h5>
+        <h5 class="card-title card-title-line" style="color: black;">Male - 15000</h5>
+        <h5 class="card-title card-title-line" style="color: black;">Female - 14000</h5>
+        <button class="btn-23" onclick="window.location.href = 'subscription.html';">
+          <span class="text">SUBSCRIBE</span>
+          <span aria-hidden="text" class="marquee">SUBSCRIBE</span>
+        </button>
+      </div>
+    </div>
+    <div class="card" style="width: 18rem; position: absolute; top: 100px; right: 1000px;">
+      <div class="card-body">
+        <h5 class="card-title card-title-line" style="color: black;">3 Month</h5>
+        <h5 class="card-title card-title-line" style="color: black;">Male - 12000</h5>
+        <h5 class="card-title card-title-line" style="color: black;">Female - 10000</h5>
+        <button class="btn-23" onclick="window.location.href = 'subscription.html';">
+          <span class="text">SUBSCRIBE</span>
+          <span aria-hidden="text" class="marquee">SUBSCRIBE</span>
+        </button>
+      </div>
+    </div>
+    <div class="card" style="width: 18rem; position: absolute; top: 100px; right: 1400px;">
+      <div class="card-body">
+        <h5 class="card-title card-title-line" style="color: black;">1 Month</h5>
+        <h5 class="card-title card-title-line" style="color: black;">Male - 6000 </h5>
+        <h5 class="card-title card-title-line" style="color: black;">Female - 5000</h5>
+        <button class="btn-23" onclick="window.location.href = 'subscription.html';">
+          <span class="text">SUBSCRIBE</span>
+          <span aria-hidden="text" class="marquee">SUBSCRIBE</span>
+        </button>
+      </div>
+    </div>
+    <h2 class="address-title">ADDRESS</h2>
+    <p class="third-point">
+      Rd Number 7, Government School, Maa Kankeshwari Coaching Institute,<br> Nanda Nagar, Indore, Madhya Pradesh 452010 <br><br>
+      Phone: +91 9131120663<br>
+      Email: harshchouhan2706@gmail.com
+    </p>
+    <p class="social-media">OUR SOCIAL MEDIA HANDLES</p>
+    <!-- Facebook logo button -->
+    <a href="https://www.facebook.com/your_facebook_page_url" target="_blank">
+      <img src="facebooklogo.png" alt="Facebook" class="facebook-logo">
+    </a>
+    <!-- Instagram logo button -->
+    <a href="https://www.instagram.com/your_instagram_profile_url" target="_blank">
+      <img src="instagramlogo.png" alt="Instagram" class="instagram-logo">
+      <a href="trial.html" target="_blank">
+        <img src="logomain.png" alt="logo" class="logomain-logo">
+    </a>
+  </div>
+</section>
+
+<script>
+window.addEventListener('scroll', function() {
+  const animatedImage = document.querySelector('.animated-image');
+  const sectionImage = document.querySelector('.section-image'); // Select the second image
+  const supplementImage = document.querySelector('.supplement-image'); // Select the supplement image
+  const yogaImage = document.querySelector('.yoga-image'); // Select the yoga image
+  const section2 = document.querySelector('.section2');
+  const section2Top = section2.getBoundingClientRect().top;
+  const section2Bottom = section2Top + section2.offsetHeight;
+  const windowHeight = window.innerHeight;
+  const scrollPosition = window.scrollY || window.pageYOffset;
+
+  // Check if any part of section2 is in the viewport
+  const section2TopInView = section2Top < windowHeight && section2Bottom > 0;
+
+  if (section2TopInView) {
+    animatedImage.classList.add('animate-image'); // Apply animation to the first image
+    sectionImage.classList.add('animate-image'); // Apply animation to the second image
+    supplementImage.classList.add('animate-image'); // Apply animation to the supplement image
+    yogaImage.classList.add('animate-image'); // Apply animation to the yoga image
+  } else {
+    animatedImage.classList.remove('animate-image'); // Remove animation from the first image
+    sectionImage.classList.remove('animate-image'); // Remove animation from the second image
+    supplementImage.classList.remove('animate-image'); // Remove animation from the supplement image
+    yogaImage.classList.remove('animate-image'); // Remove animation from the yoga image
+  }
+});
+
+
+let prevScrollpos = window.pageYOffset;
+const navbar = document.getElementById("navbar");
+
+window.onscroll = function() {
+  let currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    navbar.style.top = "0";
+  } else {
+    navbar.style.top = "-50px";
+  }
+  prevScrollpos = currentScrollPos;
+}
+function redirectToPage() {
+    // Redirect to 'signup.php'
+    window.location.href = 'login.php';
+  }
+
+
+</script>
+
+</body>
+</html>
