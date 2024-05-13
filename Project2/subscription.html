@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fit And Grow</title>
+  <style>
+    body {
+      background-image: url('second.jpg');
+      margin: 0; /* Remove default margin */
+      padding: 0; /* Remove default padding */
+    }
+  
+    .heading {
+      text-align: center; /* Center align the text */
+      margin-top: 30px; /* Adjust margin top as per your need */
+    }
+  
+    .heading img {
+      display: block; /* Make the image a block element */
+      margin: 0 auto; /* Center align the block element */
+    }
+  
+    .tabs {
+      text-align: center; /* Center align the tabs */
+      margin-top: 20px; /* Adjust margin top */
+    }
+  
+    .tab {
+      display: inline-block; /* Display tabs horizontally */
+      margin: 0 0px; /* Add some space between tabs */
+      cursor: pointer; /* Change cursor to pointer on hover */
+      padding: 15px 30px; /* Add padding to tabs */
+      background-color: #a3ac55; /* Set tab background color */
+      color: white; /* Set tab text color */
+      border-top-left-radius: 5px; /* Add border radius to top-left corner */
+      border-top-right-radius: 5px; /* Add border radius to top-right corner */
+      width: 200px; /* Set tab width */
+      height: 40px; /* Set tab height */
+      font-size: 22px;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      text-align: center;
+    }
+  
+    .tab:last-child {
+      margin-right: 0; /* Remove right margin from last tab */
+    }
+  
+    .table-container {
+      display: none; /* Hide table containers by default */
+      margin-top: 20px; /* Adjust margin top */
+      /* Add border to table containers */
+      border-radius: 1px; /* Add border radius to table containers */
+      color: white;
+    }
+  
+    .active {
+      display: table; /* Show active table container */
+      margin: 0 auto; /* Center the table horizontally */
+    }
+  
+    table {
+      width: 80%; /* Increase table width */
+      border-collapse: separate;
+    }
+  
+    th,
+    td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+      border: 1px solid white; /* Add white border */
+      padding: 10px; /* Add padding for better spacing */
+    }
+  </style>
+  
+  
+  
+</head>
+<body>
+  <div class="heading">
+    <a href="#trial.html"><img src="logomain.png" alt="Logo"></a>
+  </div>
+  
+  <div class="tabs">
+    <div class="tab" onclick="showTab(1)">Normal Plans</div>
+    <div class="tab" onclick="showTab(2)">Personal Training</div>
+    <div class="tab" onclick="showTab(3)">Online Coach</div>
+  </div>
+
+  <div class="table-container active" id="table1">
+    <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>MEMBERSHIP TYPE</th>
+          <th>1 MONTH</th>
+          <th>3 MONTH</th>
+          <th>6 MONTH</th>
+          <th>12 MONTH</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Male</td>
+          <td>6000</td>
+          <td>12000</td>
+          <td>15000</td>
+          <td>22000</td>
+        </tr>
+        <tr>
+            <td>Female</td>
+            <td>5000</td>
+            <td>10000</td>
+            <td>14000</td>
+            <td>19000</td>
+          </tr>
+          <tr>
+            <td>Couples</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>40000</td>
+          </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="table-container active" id="table2">
+    <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>MEMBERSHIP TYPE</th>
+          <th>1 MONTH</th>
+          <th>3 MONTH</th>
+          <th>6 MONTH</th>
+          <th>12 MONTH</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Gold</td>
+          <td>7000</td>
+          <td>18000</td>
+          <td>33000</td>
+          <td>60000</td>
+        </tr>
+        <tr>
+            <td>Platinum</td>
+            <td>9000</td>
+            <td>240000</td>
+            <td>44000</td>
+            <td>78000</td>
+          </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <div class="table-container active" id="table3">
+    <div class="table-wrapper">
+    <table>
+      <tbody>
+        <tr>
+          <td>12 Weeks  Diet, Online Training & Guidance</td>
+          <td>20,000</td>
+        </tr>
+        <tr>
+            <td>24 Weeks Diet, Online Training & Guidance </td>
+            <td>35,000</td>
+          </tr>
+          <tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <script>
+    function showTab(tabIndex) {
+      // Hide all table containers
+      var tableContainers = document.querySelectorAll('.table-container');
+      tableContainers.forEach(function(container) {
+        container.classList.remove('active');
+      });
+
+      // Show the selected table container
+      var selectedContainer = document.getElementById('table' + tabIndex);
+      if (selectedContainer) {
+        selectedContainer.classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>
